@@ -61,7 +61,6 @@ class App extends React.Component{
 
     return (
       <div className="App">
-
         <h1> Student List: {className}</h1>
         {
           students.map((v,k)=>{
@@ -78,7 +77,6 @@ class App extends React.Component{
           <input onChange={this.handleInput} value={new_student.tel} name="tel" type="text"  placeholder= 'enter tel ...'/>
           <button type="submit">Submit</button>
         </form>
-
       </div>
     );
   }
