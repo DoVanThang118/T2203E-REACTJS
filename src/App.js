@@ -1,5 +1,5 @@
 import React from "react";
-import Student from './components/Student';
+import { get } from './services/product.service';
 
 class App extends React.Component{
   constructor(props){
@@ -8,18 +8,9 @@ class App extends React.Component{
       products: []
     }
   }
-  componentDidMount(){
-    const url = "https://dummyjson.com/products?limit=20";
-    fetch(url)
-    .then(rs=>rs.json())
-    .then(rs=>{
-      this.setState({
-        products:rs.products
-      })
-    })
-    .catch(err=>{
-      alert(err);
-    })
+  async componentDidMount(){
+    const products = await get();
+    this.setState({products: products});
   }
 
   render(){
