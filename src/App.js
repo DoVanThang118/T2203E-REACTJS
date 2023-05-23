@@ -1,22 +1,28 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Cart from './pages/Cart';
+import React, { useReducer, useState } from 'react';
+import { Routes,Route } from 'react-router-dom';
 import Home from './pages/Home';
+import Cart from './pages/Cart';
+import Navbar from './components/Navbar';
 import Product from './pages/Product';
-
-function App() {
-
+import INIT_STATE from './store/initState';
+import  { UserProvider } from './store/context';
+import reducer from './store/reducer';
+function App(){
+  const localState = localStorage.getItem("state")?JSON.parse(localStorage.getItem("state")):INIT_STATE;
+  // const [cart,setCart] = useState(localCart);
+  const [state,dispatch] = useReducer(reducer,localState);
   return (
+    <UserProvider value={{state,dispatch}}>
+      <div id='loading' style={{display:"none"}}></div>
     <div className="App">
-      <Navbar></Navbar>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/product/:id' element={<Product />} />
-      </Routes>
+        <Navbar/>
+        <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/cart' element={<Cart/>}/>
+            <Route path='/product/:id' element={<Product/>}/>
+        </Routes>
     </div>
+    </UserProvider>
   );
 }
-
 export default App;

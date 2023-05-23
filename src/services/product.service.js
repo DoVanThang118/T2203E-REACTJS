@@ -11,12 +11,12 @@ export const get = async ()=>{
 }
 
 export const find = async (id)=>{
-    try{
+    try {
         const url = "products/"+id;
         const rs = await api.get(url);
         return rs.data;
-    }catch (err){
-        return[];
+    } catch (error) {
+        return {};
     }
 }
 
