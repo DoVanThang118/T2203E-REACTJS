@@ -1,49 +1,22 @@
-import React from "react";
-import { get } from './services/product.service';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Cart from './pages/Cart';
+import Home from './pages/Home';
+import Product from './pages/Product';
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      products: []
-    }
-  }
-  async componentDidMount(){
-    const products = await get();
-    this.setState({products: products});
-  }
+function App() {
 
-  render(){
-    const products = this.state.products;
-    return (
-      <section>
-        <div className="container">
-          <h1>Danh sachs san pham</h1>
-          <div className="row row-cols-1 row-cols-md-3 g-4">
-            {
-              products.map((e,k)=>{
-                return (
-                  <div key={k} className = "col">
-                    <div className="card h-100">
-                      <div className="card">
-                        <img src={e.thumbnail} className="card-img-top" alt="..."/>
-                        <div className="card-body">
-                          <h5 className="card-title">{e.title}</h5>
-                          <p className="card-text">{e.description}</p>
-                          <p className="text-danger">{e.price}</p>
-                          <a href="#" className="btn btn-primary">Buy</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
-      </section>
-    );
-  }
+  return (
+    <div className="App">
+      <Navbar></Navbar>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/product/:id' element={<Product />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
